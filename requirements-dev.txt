@@ -1,0 +1,4 @@
+-r requirements.txt
+duckdb>=1.1
+pytest>=8
+jupyterlab>=4

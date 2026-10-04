@@ -1,0 +1,12 @@
+{
+  "filas_originales": 2760,
+  "turnos_normalizados": 18,
+  "duplicados_eliminados": 6,
+  "corridas_invalidas_excluidas": [
+    "R01523",
+    "R02190",
+    "R02676"
+  ],
+  "humedad_imputada": 16,
+  "filas_limpias": 2751
+}

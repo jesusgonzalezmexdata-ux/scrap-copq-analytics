@@ -1,0 +1,7 @@
+producto,descripcion,linea,costo_material_mxn,costo_conversion_mxn,costo_retrabajo_mxn,precio_venta_mxn
+REF-420,Refuerzo de puerta,L1,38,14,9,92
+MNS-530,Ménsula de escape,L1,26,11,7,64
+SOP-101,Soporte de motor,L2,95,42,22,238
+TRV-310,Travesaño,L2,140,55,28,330
+BRK-205,Brazo de suspensión,L3,120,61,30,298
+BAS-615,Base de batería,L3,72,35,18,176
