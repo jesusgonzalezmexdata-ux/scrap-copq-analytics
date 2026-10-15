@@ -17,6 +17,7 @@ def test_threshold_is_recovered(fitted):
 def test_model_beats_the_baseline_out_of_sample(prod, fitted):
     mae = md.holdout(prod, threshold=fitted[0])
     assert mae["GLM binomial"] < 0.8 * mae["Modelo base (promedio por línea)"]
+    assert mae["GLM binomial"] < mae["Modelo base (línea × banda de horas)"]
 
 
 def test_effects_have_the_expected_direction(fitted):

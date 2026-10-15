@@ -37,7 +37,15 @@ MES (crudo) → limpieza y validación → COPQ y Pareto → cartas p / p′ →
 2. **Costo de no calidad.** Scrap (material más conversión), retrabajo y reclamos de cliente (selección, flete urgente y penalización).
 3. **Pareto doble.** Por piezas y por costo, con los reclamos atribuidos a su defecto.
 4. **Control estadístico.** La carta p clásica marca 47 % de los días de L2 como fuera de control: con miles de piezas por día, cualquier variación real los dispara. La **carta p′ de Laney** corrige esa sobredispersión y deja 32 días. Todos ocurren con más de 170 h desde el mantenimiento, y la firma del defecto separa dos causas: desgaste (porosidad) y una falla de fixture (dimensional).
-5. **Modelo explicativo.** Regresión logística sobre proporciones (GLM binomial ponderado por piezas), con escala cuasi-binomial por la sobredispersión (χ²/gl = 1.78). El umbral de mantenimiento se estima por mínima devianza. Fuera de muestra (entrenado con ene–sep, evaluado en oct–dic), el error absoluto medio baja de 1.18 a 0.65 puntos porcentuales frente al promedio por línea.
+5. **Modelo explicativo.** Regresión logística sobre proporciones (GLM binomial ponderado por piezas), con escala cuasi-binomial por la sobredispersión (χ²/gl = 1.78). El umbral de mantenimiento se estima por mínima devianza. Fuera de muestra (entrenado con ene–sep, evaluado en oct–dic) supera a dos modelos base:
+
+   | Predicción de la tasa diaria de scrap | Error absoluto medio (pp) |
+   |---|---:|
+   | Base: promedio por línea | 1.18 |
+   | Base: promedio por línea × banda de 50 h desde el mantenimiento | 1.04 |
+   | **GLM binomial** | **0.65** |
+
+   El segundo modelo base ya sabe que el desgaste importa; el GLM aún reduce su error en un tercio porque también usa operadores, lotes de proveedor y humedad.
 6. **Simulación de ahorro.** El modelo predice el scrap con y sin cada palanca, valora la diferencia a costo y resta lo que cuesta implementarla. La incertidumbre se propaga con 2,000 simulaciones de los coeficientes.
 
 <p>

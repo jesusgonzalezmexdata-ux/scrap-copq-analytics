@@ -69,12 +69,19 @@ def predict_rate(res, prod, threshold=160):
 
 
 def holdout(prod, cutoff="2025-10-01", threshold=160):
-    """Entrena con ene–sep y evalúa oct–dic contra un modelo base (promedio por línea)."""
+    """Entrena con ene–sep y evalúa oct–dic contra dos modelos base: promedio por línea y por línea × banda de 50 h desde el mantenimiento."""
     train, test = prod[prod["fecha"] < cutoff], prod[prod["fecha"] >= cutoff]
     res = fit(train, threshold)
     real = test["piezas_scrap"] / test["piezas_producidas"]
     base_rate = train.groupby("linea")["piezas_scrap"].sum() / train.groupby("linea")["piezas_producidas"].sum()
+    band = lambda d: (d["horas_desde_mantto"] // 50).clip(upper=6)  # noqa: E731
+    key_train = list(zip(train["linea"], band(train)))
+    grouped = train.assign(k=key_train).groupby("k")
+    band_rate = grouped["piezas_scrap"].sum() / grouped["piezas_producidas"].sum()
+    band_pred = pd.Series([band_rate.get(k, np.nan) for k in zip(test["linea"], band(test))], index=test.index)
+    band_pred = band_pred.fillna(test["linea"].map(base_rate))
     mae = {"Modelo base (promedio por línea)": (test["linea"].map(base_rate) - real).abs().mean(),
+           "Modelo base (línea × banda de horas)": (band_pred - real).abs().mean(),
            "GLM binomial": (predict_rate(res, test, threshold) - real).abs().mean()}
     return pd.Series(mae, name="error_absoluto_medio_pp") * 100
 

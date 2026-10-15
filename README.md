@@ -37,7 +37,15 @@ MES (raw) → cleaning and validation → COPQ and Pareto → p / p′ charts �
 2. **Cost of poor quality.** Scrap (material plus conversion), rework and customer claims (sorting, urgent freight and penalties).
 3. **Double Pareto.** By parts and by cost, with claims attributed to their defect.
 4. **Statistical control.** The classic p chart flags 47 % of L2's days as out of control: with thousands of parts per day, any real variation triggers it. **Laney's p′ chart** corrects that overdispersion and leaves 32 days. All of them occur more than 170 h after maintenance, and the defect signature separates two causes: wear (porosity) and a fixture failure (dimensional).
-5. **Explanatory model.** Logistic regression on proportions (binomial GLM weighted by parts) with a quasi-binomial scale for overdispersion (χ²/df = 1.78). The maintenance threshold is estimated by minimum deviance. Out of sample (trained on Jan–Sep, evaluated on Oct–Dec), the mean absolute error falls from 1.18 to 0.65 percentage points against the per-line average.
+5. **Explanatory model.** Logistic regression on proportions (binomial GLM weighted by parts) with a quasi-binomial scale for overdispersion (χ²/df = 1.78). The maintenance threshold is estimated by minimum deviance. Out of sample (trained on Jan–Sep, evaluated on Oct–Dec) it beats two baselines:
+
+   | Daily scrap-rate prediction | Mean absolute error (pp) |
+   |---|---:|
+   | Baseline: average by line | 1.18 |
+   | Baseline: average by line × 50 h band since maintenance | 1.04 |
+   | **Binomial GLM** | **0.65** |
+
+   The second baseline already knows that wear matters; the GLM still cuts its error by a third because it also uses operators, supplier batches and humidity.
 6. **Savings simulation.** The model predicts scrap with and without each lever, values the difference at cost and subtracts the cost of implementing it. Uncertainty is propagated with 2,000 simulations of the coefficients.
 
 <p>
