@@ -7,6 +7,11 @@ from . import diagnose as dg, intake, report as rp
 BLUE, GREY, INK = "#2a78d6", "#d6d5ce", "#0b0b0b"
 
 
+def _md(text: str) -> str:
+    """Streamlit lee «$…$» como fórmula; se escapa el signo de pesos."""
+    return text.replace("$", "\\$")
+
+
 @st.cache_data(show_spinner=False)
 def _template():
     return intake.template_bytes()
@@ -85,7 +90,7 @@ def render():
     c2.metric("Anualizado", rp.mxn(k["copq_anual_mxn"]), border=True)
     c3.metric("Tasa de scrap", f"{k['tasa_scrap']:.2%}", border=True)
     c4.metric("COPQ / ventas", "—" if k["copq_pct_ventas"] != k["copq_pct_ventas"] else f"{k['copq_pct_ventas']:.2%}", border=True)
-    st.success(rp.headline(r))
+    st.success(_md(rp.headline(r)))
 
     lev = r["palancas"]
     if not lev.empty:
@@ -111,7 +116,7 @@ def render():
             f"por línea ({val['mejora_pct']:+.0f} %)." + ("" if val["supera_base"] else " No pasar a piloto con estas palancas."))
 
     for a, b in rp.eight_d(r):
-        st.markdown(f"**{a}.** {b}")
+        st.markdown(f"**{a}.** {_md(b)}")
     html_report = rp.report_html(r, issues, plant, (data["filas_leidas"], data["filas_validas"]))
     st.download_button("Descargar reporte de una página (HTML, imprimible a PDF)", html_report.encode("utf-8"),
                        "diagnostico_scrap.html", "text/html", type="primary")
