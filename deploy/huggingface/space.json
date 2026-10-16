@@ -7,15 +7,16 @@
   "requirements": [
     "statsmodels",
     "matplotlib",
-    "plotly"
+    "plotly",
+    "openpyxl"
   ],
   "include": [
     "streamlit_app.py",
     "scrap_copq",
     "data/processed"
   ],
-  "short_description": "Where the money for poor quality goes (synthetic plant)",
-  "summary": "Filter by line and shift and move the maintenance interval to see the saving (synthetic auto-parts plant).",
+  "short_description": "Scrap cost and levers; try it with your plant's Excel",
+  "summary": "Synthetic auto-parts plant, or upload your own Excel: the diagnosis runs in your browser and your data never leave it.",
   "repo": "scrap-copq-analytics",
   "license": "mit"
 }

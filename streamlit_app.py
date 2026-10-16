@@ -9,6 +9,13 @@ from scrap_copq.config import PROCESSED, SHIFTS
 
 st.set_page_config(page_title="Scrap y COPQ · planta de autopartes", page_icon="🏭", layout="wide")
 
+mode = st.segmented_control("Modo", ["Planta de ejemplo", "Tus datos"], default="Planta de ejemplo", required=True,
+                            label_visibility="collapsed")
+if mode == "Tus datos":
+    from scrap_copq.ui_diagnostico import render
+    render()
+    st.stop()
+
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a"]
 ACCENT, DIM, CRITICAL = SERIES[0], "#d6d5ce", "#d03b3b"
 INK, INK_2, MUTED, GRID, BASE, SURFACE = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7", "#fcfcfb"
