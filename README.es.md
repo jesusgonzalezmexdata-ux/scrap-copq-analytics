@@ -77,7 +77,7 @@ El análisis completo, con la explicación de cada paso, está en [`notebooks/an
 El modo **«Tus datos»** del tablero aplica el mismo diagnóstico al Excel de una planta real, sin suponer nombres de líneas, turnos ni proveedores.
 
 1. Descarga la plantilla (tres hojas: `produccion`, una fila por corrida; `costos`, por número de parte; `reclamos`, opcional). Viene llena con la planta sintética como ejemplo.
-2. Sube tu archivo. Las filas con error se excluyen y se listan con su número de fila de Excel (más scrap que producción, número de parte desconocido, fechas inválidas, duplicados).
+2. Sube tu archivo, o usa el botón del archivo de ejemplo con errores de captura. Las filas con error se excluyen y se listan con su número de fila de Excel (más scrap que producción, número de parte desconocido, fechas inválidas, duplicados).
 3. Lee el resultado: costo de no calidad, cartas p′ de Laney por línea y solo las palancas con efecto estadísticamente distinto de cero, cada una con su ahorro anual P10–P90 y una prueba fuera de muestra contra el promedio por línea.
 4. Descarga un reporte de una página con la acción propuesta en formato 8D y sus referencias IATF 16949 / ISO 9001.
 
@@ -93,7 +93,7 @@ pip install -r requirements-dev.txt
 python -m scrap_copq.generate      # opcional: regenera los datos sintéticos
 python -m scrap_copq.clean         # limpieza y validación
 python -m scrap_copq.intake plantilla_scrap.xlsx   # plantilla de Excel para una planta real
-pytest                             # 23 pruebas: métricas, limpieza, modelo, SQL y entrada del MVP
+pytest                             # 24 pruebas: métricas, limpieza, modelo, SQL y entrada del MVP
 streamlit run streamlit_app.py     # tablero
 jupyter lab notebooks/analisis_scrap_copq.ipynb
 ```

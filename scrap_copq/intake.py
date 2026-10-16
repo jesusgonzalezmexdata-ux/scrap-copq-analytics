@@ -302,6 +302,22 @@ def template_bytes(tables=None) -> bytes:
     return buf.getvalue()
 
 
+def example_with_errors() -> bytes:
+    """La planta sintética exportada «como llega de planta»: encabezados con otro formato, fechas como texto
+    y errores típicos de captura. Sirve para ver la validación sin preparar un archivo."""
+    produccion, costos, reclamos = (df.copy() for df in example_tables())
+    produccion = produccion.rename(columns={"linea": "Línea", "piezas_producidas": "Piezas Producidas",
+                                            "piezas_scrap": "Scrap", "horas_desde_mantto": "Horas desde mantenimiento"})
+    produccion["fecha"] = produccion["fecha"].dt.strftime("%d/%m/%Y")
+    produccion.loc[[3, 40, 77], "turno"] = ["  nocturno ", "MATUTINO", "vespertino"]
+    produccion.loc[5, "Scrap"] = produccion.loc[5, "Piezas Producidas"] + 1
+    produccion.loc[7, "fecha"] = "31/02/2025"
+    produccion.loc[9, "producto"] = "XYZ-999"
+    produccion.loc[11, "Piezas Producidas"] = -5
+    produccion = pd.concat([produccion, produccion.iloc[[20, 21]]], ignore_index=True)
+    return template_bytes((produccion, costos, reclamos))
+
+
 if __name__ == "__main__":
     out = sys.argv[1] if len(sys.argv) > 1 else "plantilla_scrap.xlsx"
     with open(out, "wb") as fh:

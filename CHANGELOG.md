@@ -8,7 +8,7 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - MVP for real plants: "Tus datos" mode in the dashboard with an Excel template (`scrap_copq/intake.py`), row-level validation with Spanish messages, and processing in the browser on the live demo.
 - Generic diagnosis (`scrap_copq/diagnose.py`): no plant-specific names; per-line maintenance thresholds by minimum deviance; levers reported only when significant, with P10–P90 annual savings and an out-of-sample check against the line average.
 - One-page report with the 8D action and IATF 16949 / ISO 9001 references (`scrap_copq/report.py`).
-- Pilot protocol with success and stop criteria (`docs/MVP_PILOTO.md`); six tests on clean, dirty and minimal workbooks.
+- Pilot protocol with success and stop criteria (`docs/MVP_PILOTO.md`); seven tests on clean, dirty and minimal workbooks; a one-click example with capture errors.
 
 ## [1.1.0] - 2026-10-16
 

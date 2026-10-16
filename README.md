@@ -77,7 +77,7 @@ The full analysis, with an explanation of each step, is in [`notebooks/analisis_
 The **"Tus datos"** mode of the dashboard runs the same diagnosis on a real plant's Excel file. It does not assume line, shift or supplier names.
 
 1. Download the template (three sheets: `produccion`, one row per run; `costos`, per part number; `reclamos`, optional). It comes filled with the synthetic plant as an example.
-2. Upload your file. Rows with errors are excluded and listed with their Excel row number (more scrap than production, unknown part number, invalid dates, duplicates).
+2. Upload your file, or use the one-click example that comes with capture errors. Rows with errors are excluded and listed with their Excel row number (more scrap than production, unknown part number, invalid dates, duplicates).
 3. Read the result: cost of poor quality, Laney p′ charts per line, and only the levers whose effect is statistically different from zero, each with its P10–P90 annual saving and an out-of-sample check against the line average.
 4. Download a one-page report with the proposed action in 8D format and its IATF 16949 / ISO 9001 references.
 
@@ -93,7 +93,7 @@ pip install -r requirements-dev.txt
 python -m scrap_copq.generate      # optional: regenerate the synthetic data
 python -m scrap_copq.clean         # cleaning and validation
 python -m scrap_copq.intake plantilla_scrap.xlsx   # Excel template for a real plant
-pytest                             # 23 tests: metrics, cleaning, model, SQL and the MVP intake
+pytest                             # 24 tests: metrics, cleaning, model, SQL and the MVP intake
 streamlit run streamlit_app.py     # dashboard
 jupyter lab notebooks/analisis_scrap_copq.ipynb
 ```

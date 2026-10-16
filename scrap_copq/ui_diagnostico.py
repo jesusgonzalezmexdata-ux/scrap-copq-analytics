@@ -12,6 +12,11 @@ def _template():
     return intake.template_bytes()
 
 
+@st.cache_data(show_spinner=False)
+def _dirty_example():
+    return intake.example_with_errors()
+
+
 @st.cache_data(show_spinner="Validando y analizando…")
 def _run(content: bytes, settings: dg.Settings):
     data, issues = intake.validate(intake.read_workbook(content))
@@ -40,6 +45,8 @@ def render():
                "La hoja *instrucciones* explica cada columna. Mínimo 3 meses; ideal 12.")
 
     up = st.file_uploader("Tu archivo .xlsx", type=["xlsx"])
+    if st.button("O prueba con un archivo de ejemplo que trae errores de captura"):
+        st.session_state["ejemplo"] = True
     plant = st.text_input("Nombre de la planta o línea (aparece en el reporte)", "Mi planta")
     with st.expander("Costos de implementar cada palanca"):
         a, b, c = st.columns(3)
@@ -48,14 +55,19 @@ def render():
         sup = c.number_input("Cambiar de proveedor al año (MXN)", 0, 10_000_000, 0, 5_000)
         gap = st.slider("Parte del efecto de operadores nuevos que cierra la inducción", 0, 100, 50, 10, format="%d %%")
         st.caption("Sin costo capturado, el ahorro de esa palanca se reporta como bruto.")
-    if up is None:
-        st.info("Para probar, descarga la plantilla y súbela tal cual: es la planta sintética del resto del tablero.")
+    if up is not None:
+        content = up.getvalue()
+    elif st.session_state.get("ejemplo"):
+        content = _dirty_example()
+        st.caption("Analizando el archivo de ejemplo: la planta sintética con encabezados en otro formato, 4 filas con error, turnos mal escritos y 2 filas duplicadas.")
+    else:
+        st.info("Para probar, descarga la plantilla y súbela tal cual, o usa el archivo de ejemplo con errores.")
         return
 
     settings = dg.Settings(costo_preventivo_mxn=pm, costo_induccion_mxn=ind, costo_cambio_proveedor_mxn=sup,
                            brecha_induccion=gap / 100)
     try:
-        data, issues, r = _run(up.getvalue(), settings)
+        data, issues, r = _run(content, settings)
     except intake.DataError as exc:
         st.error(str(exc))
         return

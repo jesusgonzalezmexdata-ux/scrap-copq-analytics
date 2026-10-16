@@ -70,6 +70,12 @@ def test_dirty_workbook_is_reported_by_row(example):
     assert "Nocturno" in set(data["prod"]["turno"]) and "nocturno" not in set(data["prod"]["turno"])
 
 
+def test_bundled_error_example_shows_validation():
+    data, issues = intake.validate(intake.read_workbook(intake.example_with_errors()))
+    assert sum(i.nivel == "error" for i in issues) == 4
+    assert data["filas_leidas"] - data["filas_validas"] == 6
+
+
 def test_fatal_problems_raise_clear_errors(example):
     prod, costs, _ = example
     with pytest.raises(intake.DataError, match="piezas_scrap"):
