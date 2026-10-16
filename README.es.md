@@ -72,6 +72,17 @@ El análisis completo, con la explicación de cada paso, está en [`notebooks/an
 
 ![Tablero: simulador de ahorro](reports/figures/tablero.png)
 
+## Úsalo con los datos de tu planta (MVP)
+
+El modo **«Tus datos»** del tablero aplica el mismo diagnóstico al Excel de una planta real, sin suponer nombres de líneas, turnos ni proveedores.
+
+1. Descarga la plantilla (tres hojas: `produccion`, una fila por corrida; `costos`, por número de parte; `reclamos`, opcional). Viene llena con la planta sintética como ejemplo.
+2. Sube tu archivo. Las filas con error se excluyen y se listan con su número de fila de Excel (más scrap que producción, número de parte desconocido, fechas inválidas, duplicados).
+3. Lee el resultado: costo de no calidad, cartas p′ de Laney por línea y solo las palancas con efecto estadísticamente distinto de cero, cada una con su ahorro anual P10–P90 y una prueba fuera de muestra contra el promedio por línea.
+4. Descarga un reporte de una página con la acción propuesta en formato 8D y sus referencias IATF 16949 / ISO 9001.
+
+**Privacidad:** en la demo publicada el archivo se procesa dentro del navegador del visitante (Python en WebAssembly) y no se envía a ningún servidor. Sobre la planta sintética, el modelo genérico encuentra la misma palanca principal sin que se le indique: preventivo de L2 cada 160 h en lugar de ≈ 320 h, 1.07 M MXN netos al año. Protocolo de piloto y criterios de éxito y de abandono: [`docs/MVP_PILOTO.md`](docs/MVP_PILOTO.md).
+
 ## Cómo ejecutarlo
 
 ```bash
@@ -81,7 +92,8 @@ pip install -r requirements-dev.txt
 
 python -m scrap_copq.generate      # opcional: regenera los datos sintéticos
 python -m scrap_copq.clean         # limpieza y validación
-pytest                             # 17 pruebas: métricas, limpieza, modelo y SQL
+python -m scrap_copq.intake plantilla_scrap.xlsx   # plantilla de Excel para una planta real
+pytest                             # 23 pruebas: métricas, limpieza, modelo, SQL y entrada del MVP
 streamlit run streamlit_app.py     # tablero
 jupyter lab notebooks/analisis_scrap_copq.ipynb
 ```
@@ -104,6 +116,10 @@ Las pruebas comparan el resultado de cada consulta con el de Python. En el repos
 │   ├── generate.py    # datos sintéticos con patrones sembrados
 │   ├── clean.py       # limpieza y validación
 │   ├── metrics.py     # COPQ, Pareto, cartas p y p′, reglas de Western Electric
+│   ├── intake.py      # MVP: plantilla de Excel y validación por fila
+│   ├── diagnose.py    # MVP: diagnóstico genérico con palancas filtradas por significancia
+│   ├── report.py      # MVP: reporte de una página con la acción 8D
+│   ├── ui_diagnostico.py  # MVP: modo «Tus datos» del tablero
 │   ├── model.py       # GLM binomial, umbral, validación y simulación de ahorro
 │   └── plots.py       # gráficas del notebook y del README
 ├── sql/               # esquema, carga y consultas para PostgreSQL

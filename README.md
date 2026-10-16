@@ -72,6 +72,17 @@ The full analysis, with an explanation of each step, is in [`notebooks/analisis_
 
 ![Dashboard: savings simulator](reports/figures/tablero.png)
 
+## Use it with your plant's data (MVP)
+
+The **"Tus datos"** mode of the dashboard runs the same diagnosis on a real plant's Excel file. It does not assume line, shift or supplier names.
+
+1. Download the template (three sheets: `produccion`, one row per run; `costos`, per part number; `reclamos`, optional). It comes filled with the synthetic plant as an example.
+2. Upload your file. Rows with errors are excluded and listed with their Excel row number (more scrap than production, unknown part number, invalid dates, duplicates).
+3. Read the result: cost of poor quality, Laney p′ charts per line, and only the levers whose effect is statistically different from zero, each with its P10–P90 annual saving and an out-of-sample check against the line average.
+4. Download a one-page report with the proposed action in 8D format and its IATF 16949 / ISO 9001 references.
+
+**Privacy:** on the live demo the file is processed inside the visitor's browser (Python on WebAssembly) and is not sent to any server. On the synthetic plant, the generic model finds the same main lever without being told: preventive maintenance on L2 every 160 h instead of ≈ 320 h, MXN 1.07 M net a year. Pilot protocol, success and stop criteria: [`docs/MVP_PILOTO.md`](docs/MVP_PILOTO.md) (Spanish).
+
 ## How to run it
 
 ```bash
@@ -81,7 +92,8 @@ pip install -r requirements-dev.txt
 
 python -m scrap_copq.generate      # optional: regenerate the synthetic data
 python -m scrap_copq.clean         # cleaning and validation
-pytest                             # 17 tests: metrics, cleaning, model and SQL
+python -m scrap_copq.intake plantilla_scrap.xlsx   # Excel template for a real plant
+pytest                             # 23 tests: metrics, cleaning, model, SQL and the MVP intake
 streamlit run streamlit_app.py     # dashboard
 jupyter lab notebooks/analisis_scrap_copq.ipynb
 ```
@@ -105,6 +117,10 @@ The tests compare each query's result with Python's. In the repository they run 
 │   ├── clean.py       # cleaning and validation
 │   ├── metrics.py     # COPQ, Pareto, p and p′ charts, Western Electric rules
 │   ├── model.py       # binomial GLM, threshold, validation and savings simulation
+│   ├── intake.py      # MVP: Excel template and row-level validation for a real plant
+│   ├── diagnose.py    # MVP: generic diagnosis (no plant-specific names) with significance-gated levers
+│   ├── report.py      # MVP: one-page report with the 8D action
+│   ├── ui_diagnostico.py  # MVP: "Tus datos" mode of the dashboard
 │   └── plots.py       # notebook and README figures
 ├── sql/               # schema, load and queries for PostgreSQL
 ├── notebooks/         # narrated analysis
