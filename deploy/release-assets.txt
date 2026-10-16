@@ -1,0 +1,2 @@
+reports/figures
+data/processed/reporte_calidad_datos.json
