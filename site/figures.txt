@@ -1,0 +1,1 @@
+reports/figures/pareto_piezas_vs_costo.png

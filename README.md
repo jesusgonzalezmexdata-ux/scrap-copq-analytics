@@ -2,6 +2,8 @@
 
 *English · [Español](README.es.md)*
 
+**[Live demo](https://huggingface.co/spaces/JesusRLGonzalez/scrap-copq-analytics)** | **[Project page](https://jesusgonzalezmexdata-ux.github.io/scrap-copq-analytics/)**
+
 **How to find the levers that reduce scrap in an auto-parts plant, put a peso value on them and validate them with statistics.**
 
 Python (pandas, statsmodels) · SQL (PostgreSQL) · statistical process control · binomial GLM · Streamlit
