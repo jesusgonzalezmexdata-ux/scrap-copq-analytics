@@ -1,4 +1,0 @@
-streamlit_app.py
-scrap_copq
-data/processed
-.streamlit

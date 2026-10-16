@@ -1,0 +1,21 @@
+{
+  "title": "Scrap and cost of poor quality",
+  "emoji": "🔧",
+  "colorFrom": "red",
+  "colorTo": "gray",
+  "entrypoint": "streamlit_app.py",
+  "requirements": [
+    "statsmodels",
+    "matplotlib",
+    "plotly"
+  ],
+  "include": [
+    "streamlit_app.py",
+    "scrap_copq",
+    "data/processed"
+  ],
+  "short_description": "Where the money for poor quality goes (synthetic plant)",
+  "summary": "Filter by line and shift and move the maintenance interval to see the saving (synthetic auto-parts plant).",
+  "repo": "scrap-copq-analytics",
+  "license": "mit"
+}
