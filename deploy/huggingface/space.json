@@ -34,8 +34,6 @@
     "theme.showWidgetBorder": true,
     "theme.baseRadius": "4px",
     "theme.buttonRadius": "6px",
-    "theme.font": "Barlow:https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&display=swap, sans-serif",
-    "theme.headingFont": "Barlow Condensed:https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap, sans-serif",
     "theme.dataframeHeaderBackgroundColor": "#F6F7F5"
   }
 }
