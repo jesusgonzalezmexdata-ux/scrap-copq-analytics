@@ -153,6 +153,17 @@ Also: `scrap_por_defecto.csv` (scrap by defect), `reclamos_cliente.csv` (custome
 - **Observational model:** the saving assumes that the estimated effects are causal. A pilot with a p′ chart before and after is the definitive test.
 - **Costs:** the lever costs (`scrap_copq/config.py`) are assumptions to be replaced with plant data: MXN 4,500 per extra preventive stop, MXN 15,000 per trained operator and a 2 % discount from supplier C.
 
+## Skills demonstrated
+
+| Skill | Evidence |
+|---|---|
+| Cost of quality (COPQ) / Costo de la calidad | `scrap_copq/metrics.py`, `sql/03_copq_mensual.sql` |
+| Statistical process control / Control estadístico de procesos | `scrap_copq/metrics.py` (cartas p y p′ de Laney, Western Electric) |
+| Monte Carlo simulation / Simulación de Monte Carlo | `scrap_copq/model.py` (2,000 simulaciones de los coeficientes) |
+| Continuous improvement, 8D root cause / Mejora continua, causa raíz 8D | `scrap_copq/report.py` (D3–D5) |
+| IATF 16949, ISO 9001 | `scrap_copq/report.py` (8.5.1.5, 9.1.1.2, 10.2.3) |
+| Data visualization, Git, CI, testing / Visualización de datos, Git, integración continua, pruebas | `streamlit_app.py`, `.github/workflows/`, `tests/` |
+
 ## License
 
 Code under [MIT](LICENSE).

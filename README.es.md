@@ -156,3 +156,15 @@ Además: `scrap_por_defecto.csv`, `reclamos_cliente.csv`, `mantenimientos.csv`, 
 ---
 
 **Jesús R. L. González**: Analista y Científico de Datos · Operaciones y Calidad en manufactura · [LinkedIn](https://www.linkedin.com/in/jesus-r-l-gonzalez)
+
+## Aptitudes demostradas
+
+| Aptitud | Evidencia |
+|---|---|
+| Cost of quality (COPQ) / Costo de la calidad | `scrap_copq/metrics.py`, `sql/03_copq_mensual.sql` |
+| Statistical process control / Control estadístico de procesos | `scrap_copq/metrics.py` (cartas p y p′ de Laney, Western Electric) |
+| Monte Carlo simulation / Simulación de Monte Carlo | `scrap_copq/model.py` (2,000 simulaciones de los coeficientes) |
+| Continuous improvement, 8D root cause / Mejora continua, causa raíz 8D | `scrap_copq/report.py` (D3–D5) |
+| IATF 16949, ISO 9001 | `scrap_copq/report.py` (8.5.1.5, 9.1.1.2, 10.2.3) |
+| Data visualization, Git, CI, testing / Visualización de datos, Git, integración continua, pruebas | `streamlit_app.py`, `.github/workflows/`, `tests/` |
+
