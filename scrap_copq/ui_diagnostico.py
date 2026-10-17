@@ -4,7 +4,7 @@ import streamlit as st
 
 from . import diagnose as dg, intake, report as rp
 
-BLUE, GREY, INK = "#2a78d6", "#d6d5ce", "#0b0b0b"
+BLUE, GREY, INK = "#0E0F11", "#C9CDD1", "#0E0F11"  # negro señal resalta el 80 %, línea el resto
 
 
 def _md(text: str) -> str:
@@ -34,8 +34,8 @@ def _pareto_fig(pc, pp):
     fig.add_bar(x=pc["defecto"], y=pc["pct"], marker_color=[BLUE if v else GREY for v in pc["pocos_vitales"]],
                 customdata=[rank.get(d) for d in pc["defecto"]],
                 hovertemplate="%{x}: %{y:.1f} % del costo · lugar %{customdata} por piezas<extra></extra>")
-    fig.update_layout(title="Pareto por costo (en azul, el 80 %)", height=340, margin=dict(l=10, r=10, t=50, b=10),
-                      yaxis=dict(ticksuffix=" %"), plot_bgcolor="#fcfcfb", paper_bgcolor="#fcfcfb", font_color=INK)
+    fig.update_layout(title="Pareto por costo (en negro, el 80 %)", height=340, margin=dict(l=10, r=10, t=50, b=10),
+                      yaxis=dict(ticksuffix=" %"), plot_bgcolor="#FFFFFF", paper_bgcolor="#FFFFFF", font_color=INK, font_family="Barlow, system-ui, sans-serif")
     return fig
 
 

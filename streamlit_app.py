@@ -8,6 +8,9 @@ from scrap_copq.clean import load
 from scrap_copq.config import PROCESSED, SHIFTS
 
 st.set_page_config(page_title="Scrap y COPQ · planta de autopartes", page_icon="🏭", layout="wide")
+from scrap_copq.estilo import aplicar as aplicar_estilo  # noqa: E402
+
+aplicar_estilo()
 
 mode = st.segmented_control("Modo", ["Planta de ejemplo", "Tus datos"], default="Planta de ejemplo", required=True,
                             label_visibility="collapsed")
@@ -16,9 +19,10 @@ if mode == "Tus datos":
     render()
     st.stop()
 
-SERIES = ["#2a78d6", "#eb6834", "#1baf7a"]
-ACCENT, DIM, CRITICAL = SERIES[0], "#d6d5ce", "#d03b3b"
-INK, INK_2, MUTED, GRID, BASE, SURFACE = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7", "#fcfcfb"
+# Paleta «Señal de campo»: negro señal, amarillo vial, agotado, a favor, gris texto y línea.
+SERIES = ["#0E0F11", "#FFD21F", "#D7261E"]
+ACCENT, DIM, CRITICAL = SERIES[0], "#C9CDD1", "#D7261E"
+INK, INK_2, MUTED, GRID, BASE, SURFACE = "#0E0F11", "#4A4E54", "#4A4E54", "#E9EBE7", "#C9CDD1", "#FFFFFF"
 LINES = ["L1", "L2", "L3"]
 CURRENT_PM_H = 320
 MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
@@ -28,7 +32,7 @@ SHORT = {"mantenimiento": "Mantenimiento de L2", "induccion": "Inducción", "pro
 def style(fig, title, height=380, **layout):
     fig.update_layout(
         title=dict(text=title, x=0, font=dict(size=16, color=INK)), height=height,
-        font=dict(family="system-ui, -apple-system, 'Segoe UI', sans-serif", size=13, color=INK_2),
+        font=dict(family="Barlow, system-ui, -apple-system, 'Segoe UI', sans-serif", size=13, color=INK_2),
         paper_bgcolor=SURFACE, plot_bgcolor=SURFACE, margin=dict(l=10, r=10, t=64, b=10),
         legend=dict(orientation="h", yanchor="bottom", y=1.0, x=0, title=None, traceorder="normal"),
         hoverlabel=dict(bgcolor="white", font_color=INK), barcornerradius=4, **layout)
@@ -138,7 +142,7 @@ with tab_pareto:
                     line=dict(color=INK_2, width=2), marker=dict(size=8, line=dict(color=SURFACE, width=2)),
                     hovertemplate="%{x}: %{y:.1f} % acumulado<extra></extra>")
     fig.add_hline(y=80, line=dict(color=MUTED, width=1), annotation_text="80 %", annotation_position="top left")
-    st.plotly_chart(style(fig, f"Pareto de defectos por {by.lower()} · en azul, los que suman el 80 %",
+    st.plotly_chart(style(fig, f"Pareto de defectos por {by.lower()} · en negro, los que suman el 80 %",
                           bargap=0.55, yaxis=dict(range=[0, 105], ticksuffix=" %")), theme=None)
     st.caption("Por costo se suman los reclamos de cliente atribuidos a cada defecto. La *falta de fusión* "
                "es poco frecuente, pero de las más caras.")

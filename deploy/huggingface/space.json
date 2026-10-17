@@ -18,5 +18,40 @@
   "short_description": "Scrap cost and levers; try it with your plant's Excel",
   "summary": "Synthetic auto-parts plant, or upload your own Excel: the diagnosis runs in your browser and your data never leave it.",
   "repo": "scrap-copq-analytics",
-  "license": "mit"
+  "license": "mit",
+  "streamlitConfig": {
+    "theme.base": "light",
+    "theme.primaryColor": "#0E0F11",
+    "theme.backgroundColor": "#FFFFFF",
+    "theme.secondaryBackgroundColor": "#F6F7F5",
+    "theme.textColor": "#0E0F11",
+    "theme.redColor": "#D7261E",
+    "theme.greenColor": "#1F7A3D",
+    "theme.yellowColor": "#FFD21F",
+    "theme.grayColor": "#4A4E54",
+    "theme.linkColor": "#0E0F11",
+    "theme.borderColor": "#C9CDD1",
+    "theme.showWidgetBorder": true,
+    "theme.baseRadius": "4px",
+    "theme.buttonRadius": "6px",
+    "theme.font": "Barlow:https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&display=swap, sans-serif",
+    "theme.headingFont": "Barlow Condensed:https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap, sans-serif",
+    "theme.headingFontWeights": [
+      700,
+      700,
+      700,
+      600,
+      600,
+      600
+    ],
+    "theme.chartCategoricalColors": [
+      "#0E0F11",
+      "#FFD21F",
+      "#D7261E",
+      "#1F7A3D",
+      "#4A4E54",
+      "#C9CDD1"
+    ],
+    "theme.dataframeHeaderBackgroundColor": "#F6F7F5"
+  }
 }
