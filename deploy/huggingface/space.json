@@ -36,22 +36,6 @@
     "theme.buttonRadius": "6px",
     "theme.font": "Barlow:https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&display=swap, sans-serif",
     "theme.headingFont": "Barlow Condensed:https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap, sans-serif",
-    "theme.headingFontWeights": [
-      700,
-      700,
-      700,
-      600,
-      600,
-      600
-    ],
-    "theme.chartCategoricalColors": [
-      "#0E0F11",
-      "#FFD21F",
-      "#D7261E",
-      "#1F7A3D",
-      "#4A4E54",
-      "#C9CDD1"
-    ],
     "theme.dataframeHeaderBackgroundColor": "#F6F7F5"
   }
 }
